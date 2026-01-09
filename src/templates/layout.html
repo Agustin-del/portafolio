@@ -1,0 +1,53 @@
+{{ define "index" }}
+<!DOCTYPE html>
+<html lang="es-AR">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Portafolio Edmundo Rúveda</title>
+  <meta name="viewport" content="width=device-width" />
+  <!--<link rel="stylesheet" href=""-->
+  <!--<link rel="icon" sizes="16x16 32x32 48x48"/any type="image/png" href=""-->
+  <!--<link rel="alternate" href="https://www.machinelearningworkshop.com/fr/" hreflang="fr-FR" />-->
+  <!--<link rel="canonical" href="base sin traduccion" />-->
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none';
+                    script-src https://cdn.jsdelivr.net;
+                    img-src 'self';">
+
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+    integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  {{ template "header" . }}
+  <main id="content">
+    {{ block "content" . }} 
+      <section>
+        <img src="/static/imagenes/trabajando.gif" alt="Estamos trabajando" />
+        <p>Estamos trabajando</p>
+      </section>
+    {{end}}
+  </main>
+
+  {{ template "footer" . }}
+</body>
+
+</html>
+
+{{ end}}
+
+{{ define "header" }}
+<header>
+  <nav>
+    <button hx-get="/" hx-target="#content" hx-push-url="true">Inicio</button>
+    <button hx-get="/proyectos" hx-target="#content" hx-push-url="true">Proyectos</button>
+    <button hx-get="/contacto" hx-target="#content" hx-push-url="true">Contacto</button>
+  </nav>
+</header>
+{{ end }}
+
+{{define "footer" }}
+  <p>Creado en 2025</p>
+{{end}}
