@@ -1,4 +1,4 @@
-{{ define "index" }}
+{{ define "layout" }}
 <!DOCTYPE html>
 <html lang="es-AR">
 
@@ -13,20 +13,22 @@
 
   <meta http-equiv="Content-Security-Policy" content="default-src 'none';
                     script-src https://cdn.jsdelivr.net;
-                    img-src 'self';">
+                    img-src 'self';
+                    style-src 'self' 'unsafe-inline';">
+  
 
   <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
     integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous" defer></script>
 </head>
 
 <body>
   {{ template "header" . }}
   <main id="content">
-    {{ block "content" . }} 
+
+    {{ block "content" . }}
       <section>
-        <img src="/static/imagenes/trabajando.gif" alt="Estamos trabajando" />
-        <p>Estamos trabajando</p>
+        <img width="400px" height="300px" src="/imagenes/trabajando.gif" alt="Estamos trabajando" />
       </section>
     {{end}}
   </main>

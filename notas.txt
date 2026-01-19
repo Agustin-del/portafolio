@@ -1,1 +1,3 @@
--agregar nonce/o hash
+-agregar nonce/o hash -> si o si por inline styles htmx.
+-hacer un programa en rust o en bash que se fije si los servidores están corriendo.
+-ver el assembly

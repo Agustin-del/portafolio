@@ -26,16 +26,20 @@ func newTemplate() *Templates {
 func main() {
 	e := echo.New()
 
-	e.Static("/static", "static")
+	e.Static("/imagenes", "static/imagenes")
+	e.Static("/estilos", "static/estilos")
 
 	e.Use(middleware.RequestLogger())
 	e.Use(middleware.Recover())
 
-	e.Renderer = newTemplate()
+	templates := newTemplate()
+	e.Renderer = templates 
+
+	e.StdLogger.Printf("%s\n", templates.templates.DefinedTemplates())
 
 	e.GET("/", func(c echo.Context) error {
 			
-		return c.Render(http.StatusOK, "index", "sin datos")
+		return c.Render(http.StatusOK, "layout", "sin datos")
 	})
 
 	if err := e.Start(":42069"); err != nil && !errors.Is(err, http.ErrServerClosed) {
