@@ -2,25 +2,25 @@ package main
 
 import (
 	"errors"
-	"html/template"
-	"net/http"
-	"io"
+	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"net/http"
+	"portafolio/ui/pages"
 )
 
-type Templates struct {
-	templates *template.Template
+func isHtmx(c echo.Context) bool {
+	return c.Request().Header.Get("Hx-Request") == "true"
 }
 
-func (t *Templates) Render(w io.Writer, nombre string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, nombre, data)
-}
+func render(c echo.Context, component templ.Component) error {
 
-func newTemplate() *Templates {
-	return &Templates{
-		templates: template.Must(template.ParseGlob("templates/*.html")),
-	}
+	templ.Handler(component).ServeHTTP(
+		c.Response(),
+		c.Request(),
+	)
+
+	return nil
 }
 
 func main() {
@@ -32,17 +32,22 @@ func main() {
 	e.Use(middleware.RequestLogger())
 	e.Use(middleware.Recover())
 
-	templates := newTemplate()
-	e.Renderer = templates 
-
-	e.StdLogger.Printf("%s\n", templates.templates.DefinedTemplates())
-
 	e.GET("/", func(c echo.Context) error {
-			
-		return c.Render(http.StatusOK, "layout", "sin datos")
+		if isHtmx(c) {
+			return render(c, pages.InicioContenido())
+		}
+
+		return render(c, pages.Inicio)
+	})
+
+	e.GET("/contacto", func(c echo.Context) error {
+		if isHtmx(c) {
+			return render(c, pages.ContactoContenido)
+		}
+		return render(c, pages.Contacto)
 	})
 
 	if err := e.Start(":42069"); err != nil && !errors.Is(err, http.ErrServerClosed) {
-    e.Logger.Fatal("Fallo al intentar iniciar el servidor", "error", err)
+		e.Logger.Fatal("Fallo al intentar iniciar el servidor", "error", err)
 	}
 }

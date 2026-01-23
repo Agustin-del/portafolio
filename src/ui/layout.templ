@@ -1,0 +1,48 @@
+package ui
+
+templ Layout(title string) {
+  <!DOCTYPE html>
+  <html lang="es-AR">
+    <head>
+      <meta charset="utf-8" />
+      <title>{title}</title>
+      <meta name="viewport" content="width=device-width" />
+      <link rel="stylesheet" href="estilos/styles.css"/>
+      <!-- <link rel="icon" sizes="16x16 32x32 48x48"/any type="image/png" href=""/> -->
+      <!--<link rel="alternate" href="https://www.machinelearningworkshop.com/fr/" hreflang="fr-FR" />-->
+      <!--<link rel="canonical" href="base sin traduccion" />-->
+
+      <meta http-equiv="Content-Security-Policy" content="default-src 'none';
+                        script-src https://cdn.jsdelivr.net;
+                        img-src 'self';
+                        style-src 'self';
+                        connect-src 'self';
+                        form-action 'self';
+                        base-uri 'none';
+                        frame-ancestors 'none';
+                        ">
+      
+
+      <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+        integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+        crossorigin="anonymous" defer></script>
+    </head>
+
+    <body hx-boost="true">
+      <header>
+        <nav>
+          <button hx-get="/"  hx-target="#contenido" hx-push-url="true">Inicio</button>
+          <button hx-get="/proyectos" hx-target="#contenido" hx-push-url="true">Proyectos</button>
+          <button hx-get="/contacto"  hx-target="#contenido" hx-push-url="true">Contacto</button>
+        </nav>
+      </header>
+
+      <main id="contenido">
+        {children...} 
+      </main>
+      <footer>
+				© 2026
+			</footer>
+    </body>
+  </html>
+}
