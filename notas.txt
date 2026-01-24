@@ -1,3 +1,14 @@
 -agregar nonce/o hash -> si o si por inline styles htmx.
 -hacer un programa en rust o en bash que se fije si los servidores están corriendo.
 -ver el assembly
+
+csp: Content-Security-Policy:
+  default-src 'none';
+  script-src 'self';
+  style-src 'self';
+  img-src 'self';
+  font-src 'self';
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'none';
+  frame-ancestors 'none';
