@@ -1,6 +1,7 @@
 -agregar nonce/o hash -> si o si por inline styles htmx.
--hacer un programa en rust o en bash que se fije si los servidores están corriendo.
 -ver el assembly
+-fijarse de como generar los templ si los cambio, me voy a olvidar y van a quedar desactualizados.
+
 
 csp: Content-Security-Policy:
   default-src 'none';
@@ -12,3 +13,5 @@ csp: Content-Security-Policy:
   form-action 'self';
   base-uri 'none';
   frame-ancestors 'none';
+  
+-hacer un programa en rust o en bash que se fije si los servidores están corriendo.

@@ -37,14 +37,14 @@ func main() {
 			return render(c, pages.InicioContenido())
 		}
 
-		return render(c, pages.Inicio)
+		return render(c, pages.Inicio())
 	})
 
 	e.GET("/contacto", func(c echo.Context) error {
 		if isHtmx(c) {
-			return render(c, pages.ContactoContenido)
+			return render(c, pages.ContactoContenido())
 		}
-		return render(c, pages.Contacto)
+		return render(c, pages.Contacto())
 	})
 
 	if err := e.Start(":42069"); err != nil && !errors.Is(err, http.ErrServerClosed) {
