@@ -1,0 +1,16 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  bin = "./tmp/main"
+  cmd = "go build -o ./tmp/main server.go"
+  exclude_dir = ["node_modules","tmp", "vendor"]
+  include_dir = ["static", "ui"]
+  include_ext = ["go", "html"]
+
+[color]
+  app = ""
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
