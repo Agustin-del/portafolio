@@ -5,7 +5,7 @@ tmp_dir = "tmp"
   bin = "./tmp/main"
   cmd = "go build -o ./tmp/main server.go"
   exclude_dir = ["node_modules","tmp", "vendor"]
-  include_dir = ["static", "ui"]
+  include_dir = ["ui"]
   include_ext = ["go", "html"]
 
 [color]
