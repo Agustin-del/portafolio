@@ -3,5 +3,6 @@ src/tmp
 *.exe
 *.out
 *.templ
+.envrc
 
 *.sh
