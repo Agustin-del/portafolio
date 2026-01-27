@@ -2,7 +2,7 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-  bin = "./tmp/main"
+  entrypoint = "./tmp/main"
   cmd = "go build -o ./tmp/main server.go"
   exclude_dir = ["node_modules","tmp", "vendor"]
   include_dir = ["ui"]
