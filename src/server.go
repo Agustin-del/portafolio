@@ -3,13 +3,13 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/a-h/templ"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 	"net/smtp"
 	"os"
 	"portafolio/ui/pages"
-	"github.com/a-h/templ"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 type Proyecto struct {
@@ -20,9 +20,17 @@ type Proyecto struct {
 }
 
 type Mail struct {
-	Para   string
+	Para    string
 	Asunto  string
 	Mensaje string
+}
+
+func newMail(para, asunto, mensaje string) Mail {
+	return Mail{
+		Para:    para,
+		Asunto:  asunto,
+		Mensaje: mensaje,
+	}
 }
 
 func enviarEmail(c Mail) error {
@@ -56,26 +64,33 @@ func enviarEmail(c Mail) error {
 	)
 }
 
+const csp = "default-src 'none'; script-src https://cdn.jsdelivr.net; style-src 'self'; img-src 'self'; connect-src 'self';"
+
+func cspMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		if c.Request().Header.Get("Hx-Request") != "true" {
+			c.Response().Header().Set("Content-Security-Policy", csp)
+		}
+
+		return next(c)
+	}
+}
+
 func isHtmx(c echo.Context) bool {
 	return c.Request().Header.Get("Hx-Request") == "true"
 }
 
 func render(c echo.Context, component templ.Component) error {
+	options := []func(*templ.ComponentHandler){
+		templ.WithContentType("text/html; charset=utf-8"),
+	}
 
-	templ.Handler(component).ServeHTTP(
+	templ.Handler(component, options...).ServeHTTP(
 		c.Response(),
 		c.Request(),
 	)
 
 	return nil
-}
-
-func newMail(para, asunto, mensaje string) Mail {
-	return Mail{
-		Para:   para,
-		Asunto:  asunto,
-		Mensaje: mensaje,
-	}
 }
 
 func main() {
@@ -85,6 +100,7 @@ func main() {
 
 	e.Use(middleware.RequestLogger())
 	e.Use(middleware.Recover())
+	e.Use(cspMiddleware)
 
 	e.Static("/imagenes", "static/imagenes")
 	e.Static("/estilos", "static/estilos")
@@ -105,7 +121,7 @@ func main() {
 		return render(c, pages.Contacto())
 	})
 
-	e.POST("/contacto", func (c echo.Context) error {
+	e.POST("/contacto", func(c echo.Context) error {
 		para := c.FormValue("email")
 		asunto := c.FormValue("asunto")
 		mensaje := c.FormValue("mensaje")
