@@ -49,7 +49,7 @@ func Contacto() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Contacto</h1><section><h3>Si querés ponerte en contacto conmigo, podés hacerlo a través de:</h3><form hx-boost=\"false\" method=\"post\" action=\"/contacto/mail\"><p><label for=\"email\">Email</label> <input name=\"email\" id=\"email\" type=\"text\" placeholder=\"Email\"></p><p><label for=\"asunto\">Asunto</label> <input name=\"asunto\" id=\"asunto\" type=\"text\" placeholder=\"asunto\" value=\"\"></p><p><label for=\"mensaje\">Mensaje</label> <textarea id=\"mensaje\" name=\"mensaje\"></textarea></p><button type=\"submit\">Enviar</button></form><!--\n\t\t\t<p>\n\t\t\t</p>\n\t\t\t<ul>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>Email:</strong>\n\t\t\t\t\ttu-email@ejemplo.com\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>GitHub:</strong>\n\t\t\t\t\t<a href=\"https://github.com/tu-usuario\" target=\"_blank\">\n\t\t\t\t\t\tgithub.com/tu-usuario\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>LinkedIn:</strong>\n\t\t\t\t\t<a href=\"https://linkedin.com/in/tu-perfil\" target=\"_blank\">\n\t\t\t\t\t\tlinkedin.com/in/tu-perfil\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<p>\n\t\t\t\tEstoy abierto a oportunidades de colaboración y proyectos interesantes.\n\t\t\t</p>\n      --></section>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Contacto</h1><section><h3>Si querés ponerte en contacto conmigo, podés hacerlo a través de:</h3><form hx-post=\"/contacto/mail\" hx-target=\"#feedback\"><p><label for=\"email\">Email</label> <input name=\"email\" id=\"email\" type=\"text\" placeholder=\"Email\"></p><p><label for=\"asunto\">Asunto</label> <input name=\"asunto\" id=\"asunto\" type=\"text\" placeholder=\"asunto\" value=\"\"></p><p><label for=\"mensaje\">Mensaje</label> <textarea id=\"mensaje\" name=\"mensaje\"></textarea></p><button type=\"submit\">Enviar</button></form><div id=\"feedback\"></div><!--\n\t\t\t<p>\n\t\t\t</p>\n\t\t\t<ul>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>Email:</strong>\n\t\t\t\t\ttu-email@ejemplo.com\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>GitHub:</strong>\n\t\t\t\t\t<a href=\"https://github.com/tu-usuario\" target=\"_blank\">\n\t\t\t\t\t\tgithub.com/tu-usuario\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>LinkedIn:</strong>\n\t\t\t\t\t<a href=\"https://linkedin.com/in/tu-perfil\" target=\"_blank\">\n\t\t\t\t\t\tlinkedin.com/in/tu-perfil\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<p>\n\t\t\t\tEstoy abierto a oportunidades de colaboración y proyectos interesantes.\n\t\t\t</p>\n      --></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -84,14 +84,14 @@ func ContactoContenido(email Mail) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<h1>Contacto</h1><section><form hx-boost=\"false\" method=\"post\" action=\"/contacto/mail\"><p><label for=\"email\">Email</label> <input name=\"email\" id=\"email\" type=\"email\" placeholder=\"Email\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<h1>Contacto</h1><section><form hx-post=\"/contacto/mail\" hx-target=\"#feedback\"><p><label for=\"email\">Email</label> <input name=\"email\" id=\"email\" type=\"email\" placeholder=\"Email\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(email.De)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 84, Col: 20}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 85, Col: 21}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -104,7 +104,7 @@ func ContactoContenido(email Mail) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(email.Asunto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 94, Col: 24}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 95, Col: 25}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -117,13 +117,71 @@ func ContactoContenido(email Mail) templ.Component {
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(email.Mensaje)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 99, Col: 56}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 100, Col: 57}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</textarea></p><button type=\"submit\">Enviar</button></form></section>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</textarea></p><button type=\"submit\">Enviar</button></form><div id=\"feedback\"></div></section>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+func ContactoVacio() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var7 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var7 == nil {
+			templ_7745c5c3_Var7 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<p class=\"feedback-error\">❌ Todos los campos son necesarios.</p>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+func ContactoExito() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var8 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var8 == nil {
+			templ_7745c5c3_Var8 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<p class=\"feedback-ok\">✅ Tu mensaje fue enviado con éxito.</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

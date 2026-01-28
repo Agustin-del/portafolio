@@ -60,8 +60,8 @@ func enviarEmail(mail pages.Mail) error {
 	)
 }
 
-func render(c echo.Context, component templ.Component) {
-	c.Response().WriteHeader(http.StatusOK)
+func render(c echo.Context, component templ.Component, code int) {
+	c.Response().WriteHeader(code)
 	templ.Handler(component).ServeHTTP(
 		c.Response(),
 		c.Request(),
@@ -77,7 +77,7 @@ func main() {
 
 	e := echo.New()
 
-	e.HTTPErrorHandler = func (err error, c echo.Context) {
+	e.HTTPErrorHandler = func(err error, c echo.Context) {
 		if c.Response().Committed {
 			return
 		}
@@ -114,11 +114,11 @@ func main() {
 	//	admin := e.Group("")
 	e.GET("/", func(c echo.Context) error {
 		if isHtmx(c) {
-			render(c, pages.InicioContenido())
+			render(c, pages.InicioContenido(), http.StatusOK)
 			return nil
 		}
 
-		render(c, pages.Inicio())
+		render(c, pages.Inicio(), http.StatusOK)
 
 		return nil
 	})
@@ -126,11 +126,11 @@ func main() {
 	e.GET("/contacto", func(c echo.Context) error {
 
 		if isHtmx(c) {
-			render(c, pages.ContactoContenido(pages.Mail{}))
+			render(c, pages.ContactoContenido(pages.Mail{}), http.StatusOK)
 			return nil
 		}
 
-		render(c, pages.Contacto())
+		render(c, pages.Contacto(), http.StatusOK)
 		return nil
 	})
 
@@ -139,16 +139,24 @@ func main() {
 		asunto := c.FormValue("asunto")
 		mensaje := c.FormValue("mensaje")
 
-		//TODO: validacion minima de que esten llenos los campos
-		// mantener el boton desactivado si estan vacios
-		email := newMail(de, asunto, mensaje)
-
-		if err := enviarEmail(email); err != nil {
-			render(c, pages.Contacto())
-			return  nil
+		if asunto == "" || mensaje == "" {
+			render(c, pages.ContactoVacio(), http.StatusUnprocessableEntity)
+			return nil
 		}
 
-		render(c, pages.ContactoContenido(email))
+		email := pages.Mail{
+			De:      de,
+			Asunto:  asunto,
+			Mensaje: mensaje,
+		}
+
+		// mantener el boton desactivado si estan vacios
+		if err := enviarEmail(email); err != nil {
+			render(c, pages.Error(http.StatusInternalServerError), http.StatusInternalServerError)
+			return nil
+		}
+
+		render(c, pages.ContactoExito(), http.StatusOK)
 		return nil
 	})
 
