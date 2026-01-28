@@ -1,3 +1,4 @@
+IMPORTANTE -> pasar al componente Contacto solo errores []string, igual pensarlo porque necesito el valor para mostrarlo, es decir el email que pusieron.
 -agregar nonce/o hash -> si o si por inline styles htmx.
 -ver el assembly
 -fijarse de como generar los templ si los cambio, me voy a olvidar y van a quedar desactualizados.

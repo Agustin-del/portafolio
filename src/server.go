@@ -19,21 +19,15 @@ type Proyecto struct {
 	fuentes               []string
 }
 
-type Mail struct {
-	Para    string
-	Asunto  string
-	Mensaje string
-}
-
-func newMail(para, asunto, mensaje string) Mail {
-	return Mail{
-		Para:    para,
+func newMail(de, asunto, mensaje string) pages.Mail {
+	return pages.Mail{
+		De:    de,
 		Asunto:  asunto,
 		Mensaje: mensaje,
 	}
 }
 
-func enviarEmail(c Mail) error {
+func enviarEmail(c pages.Mail) error {
 	de := os.Getenv("USUARIO_SMTP")
 	pass := os.Getenv("PASS_SMTP")
 
@@ -50,7 +44,7 @@ func enviarEmail(c Mail) error {
 			"%s\r\n",
 		de,
 		para,
-		c.Para,
+		c.De,
 		c.Asunto,
 		c.Mensaje,
 	))
@@ -76,10 +70,6 @@ func cspMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-func isHtmx(c echo.Context) bool {
-	return c.Request().Header.Get("Hx-Request") == "true"
-}
-
 func render(c echo.Context, component templ.Component) error {
 	options := []func(*templ.ComponentHandler){
 		templ.WithContentType("text/html; charset=utf-8"),
@@ -91,6 +81,10 @@ func render(c echo.Context, component templ.Component) error {
 	)
 
 	return nil
+}
+
+func isHtmx(c echo.Context) bool {
+	return c.Request().Header.Get("Hx-Request") == "true"
 }
 
 func main() {
@@ -114,24 +108,24 @@ func main() {
 	})
 
 	e.GET("/contacto", func(c echo.Context) error {
-
 		if isHtmx(c) {
-			return render(c, pages.ContactoContenido())
+			return render(c, pages.ContactoContenido(pages.Mail{}))
 		}
 		return render(c, pages.Contacto())
 	})
 
-	e.POST("/contacto", func(c echo.Context) error {
-		para := c.FormValue("email")
+	e.POST("/contacto/mail", func(c echo.Context) error {
+		de := c.FormValue("email")
 		asunto := c.FormValue("asunto")
 		mensaje := c.FormValue("mensaje")
-		email := newMail(para, asunto, mensaje)
+
+		email := newMail(de, asunto, mensaje)
 
 		if err := enviarEmail(email); err != nil {
-			return c.String(http.StatusInternalServerError, "Error enviando email")
+			return render(c, pages.Contacto())
 		}
 
-		return c.String(http.StatusOK, "Mensaje enviado")
+		return render(c, pages.ContactoContenido(email))
 	})
 
 	if err := e.Start(":42069"); err != nil && !errors.Is(err, http.ErrServerClosed) {

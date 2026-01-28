@@ -36,13 +36,13 @@ func Layout(title string) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/layout.templ`, Line: 8, Col: 19}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/layout.templ`, Line: 8, Col: 17}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta name=\"viewport\" content=\"width=device-width\"><link rel=\"stylesheet\" href=\"estilos/styles.css\"><!-- <link rel=\"icon\" sizes=\"16x16 32x32 48x48\"/any type=\"image/png\" href=\"\"/> --><!--<link rel=\"alternate\" href=\"https://www.machinelearningworkshop.com/fr/\" hreflang=\"fr-FR\" />--><!--<link rel=\"canonical\" href=\"base sin traduccion\" />--><script src=\"https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js\" integrity=\"sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz\" crossorigin=\"anonymous\" defer></script></head><body hx-boost=\"true\"><header><nav><button hx-get=\"/\" hx-target=\"#contenido\" hx-push-url=\"true\">Inicio</button> <button hx-get=\"/proyectos\" hx-target=\"#contenido\" hx-push-url=\"true\">Proyectos</button> <button hx-get=\"/contacto\" hx-target=\"#contenido\" hx-push-url=\"true\">Contacto</button></nav></header><main id=\"contenido\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta name=\"viewport\" content=\"width=device-width\"><link rel=\"stylesheet\" href=\"estilos/styles.css\"><!-- <link rel=\"icon\" sizes=\"16x16 32x32 48x48\"/any type=\"image/png\" href=\"\"/> --><!--<link rel=\"alternate\" href=\"https://www.machinelearningworkshop.com/fr/\" hreflang=\"fr-FR\" />--><!--<link rel=\"canonical\" href=\"base sin traduccion\" />--><script src=\"https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js\" integrity=\"sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz\" crossorigin=\"anonymous\" defer></script><meta name=\"htmx-config\" content='{\"inlineStyleNonce\": \"random-nonce\"}'></head><body hx-boost=\"true\"><header><nav><button hx-get=\"/\" hx-target=\"#contenido\" hx-push-url=\"true\">Inicio</button> <button hx-get=\"/proyectos\" hx-target=\"#contenido\" hx-push-url=\"true\">Proyectos</button> <button hx-get=\"/contacto\" hx-target=\"#contenido\" hx-push-url=\"true\">Contacto</button></nav></header><main id=\"contenido\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
