@@ -12,6 +12,8 @@ import (
 	"portafolio/ui/pages"
 )
 
+const csp = "default-src 'none'; script-src https://cdn.jsdelivr.net; style-src 'self'; img-src 'self'; connect-src 'self';"
+
 type Proyecto struct {
 	Titulo                string
 	Descripcion_general   string
@@ -21,7 +23,7 @@ type Proyecto struct {
 
 func newMail(de, asunto, mensaje string) pages.Mail {
 	return pages.Mail{
-		De:    de,
+		De:      de,
 		Asunto:  asunto,
 		Mensaje: mensaje,
 	}
@@ -58,29 +60,11 @@ func enviarEmail(c pages.Mail) error {
 	)
 }
 
-const csp = "default-src 'none'; script-src https://cdn.jsdelivr.net; style-src 'self'; img-src 'self'; connect-src 'self';"
-
-func cspMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		if c.Request().Header.Get("Hx-Request") != "true" {
-			c.Response().Header().Set("Content-Security-Policy", csp)
-		}
-
-		return next(c)
-	}
-}
-
-func render(c echo.Context, component templ.Component) error {
-	options := []func(*templ.ComponentHandler){
-		templ.WithContentType("text/html; charset=utf-8"),
-	}
-
-	templ.Handler(component, options...).ServeHTTP(
+func render(c echo.Context, component templ.Component) {
+	templ.Handler(component).ServeHTTP(
 		c.Response(),
 		c.Request(),
 	)
-
-	return nil
 }
 
 func isHtmx(c echo.Context) bool {
@@ -94,11 +78,21 @@ func main() {
 
 	e.Use(middleware.RequestLogger())
 	e.Use(middleware.Recover())
-	e.Use(cspMiddleware)
+	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			if c.Request().Header.Get("Hx-Request") != "true" {
+				c.Response().Header().Set("Content-Security-Policy", csp)
+			}
+
+			return next(c)
+		}
+	})
 
 	e.Static("/imagenes", "static/imagenes")
 	e.Static("/estilos", "static/estilos")
 
+	//TODO: quizas agregar funcionalidades para mi, metricas etc
+	//	admin := e.Group("")
 	e.GET("/", func(c echo.Context) error {
 		if isHtmx(c) {
 			return render(c, pages.InicioContenido())
@@ -119,6 +113,8 @@ func main() {
 		asunto := c.FormValue("asunto")
 		mensaje := c.FormValue("mensaje")
 
+		//TODO: validacion minima de que esten llenos los campos
+		// mantener el boton desactivado si estan vacios
 		email := newMail(de, asunto, mensaje)
 
 		if err := enviarEmail(email); err != nil {

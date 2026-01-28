@@ -1,9 +1,10 @@
 IMPORTANTE -> pasar al componente Contacto solo errores []string, igual pensarlo porque necesito el valor para mostrarlo, es decir el email que pusieron.
--agregar nonce/o hash -> si o si por inline styles htmx.
--ver el assembly
--fijarse de como generar los templ si los cambio, me voy a olvidar y van a quedar desactualizados.
--fijarse el árbol en github, y como es la historia de commits, quizás puedo juntar, es decir es mi rama personal aunque sea main en este caso.
 
+-agregar nonce/o hash -> si o si por inline styles htmx.
+-CORS
+-rate limit
+-ver el assembly
+-fijarse el árbol en github, y como es la historia de commits, quizás puedo juntar, es decir es mi rama personal aunque sea main en este caso.
 csp: Content-Security-Policy:
   default-src 'none';
   script-src 'self';
@@ -15,3 +16,20 @@ csp: Content-Security-Policy:
   base-uri 'none';
   frame-ancestors 'none';
   
+Server (prod barato)
+
+variables de entorno
+
+definidas por:
+
+systemd
+
+o script de deploy
+
+permisos de archivo correctos
+
+Ejemplo systemd:
+
+[Service]
+Environment=SMTP_USER=...
+Environment=SMTP_PASS=...
