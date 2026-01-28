@@ -12,7 +12,7 @@ import (
 	"portafolio/ui/pages"
 )
 
-const csp = "default-src 'none'; script-src https://cdn.jsdelivr.net; style-src 'self'; img-src 'self'; connect-src 'self';"
+const csp = "default-src 'none'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self'; connect-src 'self';"
 
 type Proyecto struct {
 	Titulo                string
@@ -29,7 +29,7 @@ func newMail(de, asunto, mensaje string) pages.Mail {
 	}
 }
 
-func enviarEmail(c pages.Mail) error {
+func enviarEmail(mail pages.Mail) error {
 	de := os.Getenv("USUARIO_SMTP")
 	pass := os.Getenv("PASS_SMTP")
 
@@ -37,7 +37,7 @@ func enviarEmail(c pages.Mail) error {
 
 	auth := smtp.PlainAuth("", de, pass, "smtp.gmail.com")
 
-	msj := []byte(fmt.Sprintf(
+	msj := fmt.Sprintf(
 		"To: Contacto web <%s>\r\n"+
 			"From: %s\r\n"+
 			"Reply-To: %s\r\n"+
@@ -46,21 +46,22 @@ func enviarEmail(c pages.Mail) error {
 			"%s\r\n",
 		de,
 		para,
-		c.De,
-		c.Asunto,
-		c.Mensaje,
-	))
+		mail.De,
+		mail.Asunto,
+		mail.Mensaje,
+	)
 
 	return smtp.SendMail(
 		"smtp.gmail.com:587",
 		auth,
 		de,
 		[]string{para},
-		msj,
+		[]byte(msj),
 	)
 }
 
 func render(c echo.Context, component templ.Component) {
+	c.Response().WriteHeader(http.StatusOK)
 	templ.Handler(component).ServeHTTP(
 		c.Response(),
 		c.Request(),
@@ -76,6 +77,23 @@ func main() {
 
 	e := echo.New()
 
+	e.HTTPErrorHandler = func (err error, c echo.Context) {
+		if c.Response().Committed {
+			return
+		}
+
+		code := http.StatusInternalServerError
+		if he, ok := err.(*echo.HTTPError); ok {
+			code = he.Code
+		}
+
+		c.Response().WriteHeader(code)
+
+		templ.Handler(
+			pages.Error(code),
+		).ServeHTTP(c.Response(), c.Request())
+	}
+
 	e.Use(middleware.RequestLogger())
 	e.Use(middleware.Recover())
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
@@ -90,22 +108,30 @@ func main() {
 
 	e.Static("/imagenes", "static/imagenes")
 	e.Static("/estilos", "static/estilos")
+	e.Static("/scripts", "static/scripts")
 
 	//TODO: quizas agregar funcionalidades para mi, metricas etc
 	//	admin := e.Group("")
 	e.GET("/", func(c echo.Context) error {
 		if isHtmx(c) {
-			return render(c, pages.InicioContenido())
+			render(c, pages.InicioContenido())
+			return nil
 		}
 
-		return render(c, pages.Inicio())
+		render(c, pages.Inicio())
+
+		return nil
 	})
 
 	e.GET("/contacto", func(c echo.Context) error {
+
 		if isHtmx(c) {
-			return render(c, pages.ContactoContenido(pages.Mail{}))
+			render(c, pages.ContactoContenido(pages.Mail{}))
+			return nil
 		}
-		return render(c, pages.Contacto())
+
+		render(c, pages.Contacto())
+		return nil
 	})
 
 	e.POST("/contacto/mail", func(c echo.Context) error {
@@ -118,10 +144,12 @@ func main() {
 		email := newMail(de, asunto, mensaje)
 
 		if err := enviarEmail(email); err != nil {
-			return render(c, pages.Contacto())
+			render(c, pages.Contacto())
+			return  nil
 		}
 
-		return render(c, pages.ContactoContenido(email))
+		render(c, pages.ContactoContenido(email))
+		return nil
 	})
 
 	if err := e.Start(":42069"); err != nil && !errors.Is(err, http.ErrServerClosed) {
