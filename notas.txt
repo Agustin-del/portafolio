@@ -1,9 +1,11 @@
 IMPORTANTE -> pasar al componente Contacto solo errores []string, igual pensarlo porque necesito el valor para mostrarlo, es decir el email que pusieron.
 
 -manejar mejor las respuestas, estudiar un poco.
+-agregar sanitizacion de las entradas de usuario.
 -agregar nonce/o hash -> si o si por inline styles htmx.
 -CORS
 -rate limit
+-accesibilidad
 -ver el assembly
 -fijarse el árbol en github, y como es la historia de commits, quizás puedo juntar, es decir es mi rama personal aunque sea main en este caso.
 csp: Content-Security-Policy:

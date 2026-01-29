@@ -63,6 +63,7 @@ textarea {
 }
 
 #feedback {
+  display:none;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -85,8 +86,8 @@ textarea {
   color: black;
 }
 
-#feedback p:has(.feedback-ok),
-#feedback p:has(.feedback-error) {
+#feedback .feedback-ok,
+#feedback .feedback-error {
   display: block;
 }
 
