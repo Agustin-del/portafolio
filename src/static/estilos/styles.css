@@ -61,9 +61,11 @@ textarea {
 .error {
   color: red;
 }
+#feedback[aria-hidden] {
+  display:none;
+}
 
 #feedback {
-  display:none;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -103,4 +105,33 @@ textarea {
   background: #fff5f5;
   border-color: #e53e3e;
   color: #7f1d1d;
+}
+
+.skip-link
+{
+position:absolute;
+left:-10000px;
+top:auto;
+width:1px;
+height:1px;
+overflow:hidden;
+}
+ 
+.skip-link:focus
+{
+position:static;
+width:auto;
+height:auto;
+}
+
+a[role='menuitem'] {
+  cursor: pointer;  
+}
+
+button:enabled {
+  cursor: pointer;
+}
+
+textarea {
+  resize: none;
 }

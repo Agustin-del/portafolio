@@ -1,13 +1,30 @@
 IMPORTANTE -> pasar al componente Contacto solo errores []string, igual pensarlo porque necesito el valor para mostrarlo, es decir el email que pusieron.
-
+-puse el aria-hidden del feedback, pero tengo que ver como cambiarlo.
 -manejar mejor las respuestas, estudiar un poco.
 -agregar sanitizacion de las entradas de usuario.
 -agregar nonce/o hash -> si o si por inline styles htmx.
 -CORS
 -rate limit
--accesibilidad
+-accesibilidad -> Include an accessibility policy/statement somewhere findable on your site to say what you did.
 -ver el assembly
 -fijarse el árbol en github, y como es la historia de commits, quizás puedo juntar, es decir es mi rama personal aunque sea main en este caso.
+
+
+attrs html interesantes:
+<input
+  type="text"
+  id="name"
+  name="name"
+  required
+  minlength="4"
+  maxlength="8"
+  size="10" />
+css:
+-colores = #5E06B7 a #360F5C background 
+  #E1DBDB foreground
+#<a> <button>
+  -A minimum size of 44×44 CSS pixels is recommended.
+
 csp: Content-Security-Policy:
   default-src 'none';
   script-src 'self';

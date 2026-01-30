@@ -10,7 +10,14 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "portafolio/ui"
 
-func Inicio() templ.Component {
+type Proyecto struct {
+	Titulo                string
+	Descripcion_general   string
+	Descripcion_detallada string
+	fuentes               []string
+}
+
+func Proyectos() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -43,13 +50,13 @@ func Inicio() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Hola, soy Edmundo.</h1><p>Soy desarrollador web, me enfoco en el backend sobre todo, me gusta entender las cosas desde abajo porque para mí la raíz es importante. Estoy realizando pasantías en las que uso PHP y Vue, así como Node.js y Go como lenguajes. Soy autodidacta. He estudiado sistemas operativos, así como protocolos, también me he interiorizado un poco sobre parseo de texto y lenguajes en sí.</p><p>Para hacer cosas a un nivel por debajo y entender cómo funcionan las cosas he estudiado un poco de C.</p><p>La verdad, debido a mi interés por el backend me ha costado mucho pensar cómo hacer mi portafolio, es decir, mostrar mi trabajo, ya que lo que sale es visual, y la mayoría de los proyectos en los que trabajo son privados, por lo que se me ocurrió tomar el mismo portafolio como un proyecto y explicarlo, así como otros pequeños proyectos \"juguete\".</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1 id=\"proyectos\">Proyectos</h1><nav aria-labelledby=\"proyectos\"><ul><li></li><ul><li></li><li></li></ul></ul></nav>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = ui.Layout("Inicio - Edmundo Ruveda Portafolio").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = ui.Layout("Proyectos - Edmundo Ruveda Portafolio").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

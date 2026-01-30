@@ -49,13 +49,13 @@ func Contacto() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Contacto</h1><section><h3>Si querés ponerte en contacto conmigo, podés hacerlo a través de:</h3><form hx-post=\"/contacto/mail\" hx-target=\"#feedback\"><p><label for=\"email\">Email</label> <input name=\"email\" id=\"email\" type=\"text\" placeholder=\"Email\"></p><p><label for=\"asunto\">Asunto</label> <input name=\"asunto\" id=\"asunto\" type=\"text\" placeholder=\"asunto\" value=\"\"></p><p><label for=\"mensaje\">Mensaje</label> <textarea id=\"mensaje\" name=\"mensaje\"></textarea></p><button id=\"enviar\" type=\"submit\">Enviar</button></form><div id=\"feedback\"></div><!--\n\t\t\t<p>\n\t\t\t</p>\n\t\t\t<ul>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>Email:</strong>\n\t\t\t\t\ttu-email@ejemplo.com\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>GitHub:</strong>\n\t\t\t\t\t<a href=\"https://github.com/tu-usuario\" target=\"_blank\">\n\t\t\t\t\t\tgithub.com/tu-usuario\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<strong>LinkedIn:</strong>\n\t\t\t\t\t<a href=\"https://linkedin.com/in/tu-perfil\" target=\"_blank\">\n\t\t\t\t\t\tlinkedin.com/in/tu-perfil\n\t\t\t\t\t</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<p>\n\t\t\t\tEstoy abierto a oportunidades de colaboración y proyectos interesantes.\n\t\t\t</p>\n      --></section><script src=\"scripts/enviar.js\" defer></script>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Contacto</h1><h2>Si querés ponerte en contacto conmigo, podés hacerlo a través de:</h2><form hx-post=\"/contacto/mail\" hx-target=\"#feedback\"><p><label for=\"email\">Email</label> <input name=\"email\" id=\"email\" type=\"email\" required></p><p><label for=\"asunto\">Asunto</label> <input name=\"asunto\" id=\"asunto\" type=\"text\" value=\"\" required></p><p><label for=\"mensaje\">Mensaje</label> <textarea required id=\"mensaje\" name=\"mensaje\" rows=\"10\" cols=\"80\"></textarea></p><button id=\"enviar\" type=\"submit\">Enviar</button></form><div aria-hidden=\"true\" id=\"feedback\"></div><script src=\"scripts/enviar.js\" defer></script>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = ui.Layout("Contacto").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = ui.Layout("Contacto -Edmundo Ruveda Portafolio").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -84,46 +84,46 @@ func ContactoContenido(email Mail) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<h1>Contacto</h1><section><form hx-post=\"/contacto/mail\" hx-target=\"#feedback\"><p><label for=\"email\">Email</label> <input name=\"email\" id=\"email\" type=\"email\" placeholder=\"Email\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<h1>Contacto</h1><h2>Si querés ponerte en contacto conmigo, podés hacerlo a través de:</h2><form hx-post=\"/contacto/mail\" hx-target=\"#feedback\"><p><label for=\"email\">Email</label> <input name=\"email\" id=\"email\" type=\"email\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(email.De)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 86, Col: 21}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 66, Col: 20}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"></p><p><label for=\"asunto\">Asunto</label> <input name=\"asunto\" id=\"asunto\" type=\"text\" placeholder=\"asunto\" value=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\" required></p><p><label for=\"asunto\">Asunto</label> <input name=\"asunto\" id=\"asunto\" type=\"text\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(email.Asunto)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 96, Col: 25}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 76, Col: 24}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\"></p><p><label for=\"mensaje\">Mensaje</label> <textarea id=\"mensaje\" name=\"mensaje\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" required></p><p><label for=\"mensaje\">Mensaje</label> <textarea required id=\"mensaje\" name=\"mensaje\" rows=\"10\" cols=\"80\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(email.Mensaje)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 101, Col: 57}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `ui/pages/contacto.templ`, Line: 88, Col: 19}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</textarea></p><button id=\"enviar\" type=\"submit\">Enviar</button></form><div id=\"feedback\"></div></section><script src=\"scripts/enviar.js\" defer></script>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</textarea></p><button id=\"enviar\" type=\"submit\">Enviar</button></form><div aria-hidden=\"true\" id=\"feedback\"></div><script src=\"scripts/enviar.js\" defer></script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

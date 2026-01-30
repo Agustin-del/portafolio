@@ -14,13 +14,6 @@ import (
 
 const csp = "default-src 'none'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self'; connect-src 'self';"
 
-type Proyecto struct {
-	Titulo                string
-	Descripcion_general   string
-	Descripcion_detallada string
-	fuentes               []string
-}
-
 func newMail(de, asunto, mensaje string) pages.Mail {
 	return pages.Mail{
 		De:      de,
@@ -113,26 +106,22 @@ func main() {
 	//TODO: quizas agregar funcionalidades para mi, metricas etc
 	//	admin := e.Group("")
 	e.GET("/", func(c echo.Context) error {
-		if isHtmx(c) {
-			render(c, pages.InicioContenido(), http.StatusOK)
-			return nil
-		}
-
 		render(c, pages.Inicio(), http.StatusOK)
 
 		return nil
 	})
 
+	e.GET("/proyectos", func(c echo.Context) error {
+		render(c,pages.Proyectos(), http.StatusOK)
+		return nil
+	})
+
 	e.GET("/contacto", func(c echo.Context) error {
-
-		if isHtmx(c) {
-			render(c, pages.ContactoContenido(pages.Mail{}), http.StatusOK)
-			return nil
-		}
-
 		render(c, pages.Contacto(), http.StatusOK)
 		return nil
 	})
+
+
 
 	e.POST("/contacto/mail", func(c echo.Context) error {
 		de := c.FormValue("email")
