@@ -140,7 +140,7 @@ func main() {
 		// mantener el boton desactivado si estan vacios
 		if err := enviarEmail(email); err != nil {
 			c.Logger().Error("Error enviando mail", "error", err)
-			render(c, pages.Error(http.StatusInternalServerError), http.StatusInternalServerError)
+			//render(c, pages.Error(http.StatusInternalServerError), http.StatusInternalServerError)
 			return nil
 		}
 
