@@ -10,13 +10,6 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "portafolio/ui"
 
-type Proyecto struct {
-	Titulo                string
-	Descripcion_general   string
-	Descripcion_detallada string
-	fuentes               []string
-}
-
 func Proyectos() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context

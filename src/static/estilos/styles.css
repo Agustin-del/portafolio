@@ -61,15 +61,17 @@ textarea {
 .error {
   color: red;
 }
+
 #feedback[aria-hidden] {
-  display:none;
+  display: none;
 }
 
 #feedback {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* centra exacto */
+  transform: translate(-50%, -50%);
+  /* centra exacto */
   z-index: 9999;
 
   min-width: 280px;
@@ -107,25 +109,23 @@ textarea {
   color: #7f1d1d;
 }
 
-.skip-link
-{
-position:absolute;
-left:-10000px;
-top:auto;
-width:1px;
-height:1px;
-overflow:hidden;
+.skip-link {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
- 
-.skip-link:focus
-{
-position:static;
-width:auto;
-height:auto;
+
+.skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
 }
 
 a[role='menuitem'] {
-  cursor: pointer;  
+  cursor: pointer;
 }
 
 button:enabled {
@@ -134,4 +134,38 @@ button:enabled {
 
 textarea {
   resize: none;
+}
+
+#feedback.vh {
+  position:absolute;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  block-size: 1px;
+  inline-size: 1px;
+  overflow: hidden;
+}
+
+#feedback {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  min-width: 280px;
+  max-width: 90%;
+  height: 300px;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: white;
+  clip: auto;
+  clip-path: none;
+  block-size: auto;
+  inline-size: auto;
+  overflow: visible;
+  position: fixed;
 }

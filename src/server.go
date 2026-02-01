@@ -121,8 +121,6 @@ func main() {
 		return nil
 	})
 
-
-
 	e.POST("/contacto/mail", func(c echo.Context) error {
 		de := c.FormValue("email")
 		asunto := c.FormValue("asunto")
@@ -141,6 +139,7 @@ func main() {
 
 		// mantener el boton desactivado si estan vacios
 		if err := enviarEmail(email); err != nil {
+			c.Logger().Error("Error enviando mail", "error", err)
 			render(c, pages.Error(http.StatusInternalServerError), http.StatusInternalServerError)
 			return nil
 		}
