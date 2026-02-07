@@ -1,0 +1,16 @@
+package pages
+
+templ Error(code int) {
+    <!doctype html>
+    <html>
+      <head>
+        <title>Error {code}</title>
+        <script src="scripts/app.js" defer></script>
+      </head>
+      <body>
+        <h1>Error {code}</h1>
+        <p>Algo salió mal.</p>
+        <button id="volver">Volver</button>
+      </body>
+    </html>
+}

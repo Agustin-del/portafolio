@@ -1,3 +1,4 @@
+TOKEN GITHUB VENCE EN ABRIL -> tendria que automatizar en vez de esperar al error, minimo loguear.
 -manejar reintentos mails servidor
 -manejar mejor las respuestas, estudiar un poco.
 -agregar sanitizacion de las entradas de usuario.

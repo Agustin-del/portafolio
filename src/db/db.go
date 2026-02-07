@@ -5,29 +5,35 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"portafolio/ui/pages"
 	"strings"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
+const (
+	githubAPIBase = "https://api.gihtub.com"
+	maxRetries = 3
+	retryDelay = time.Second * 2
+)
+
 var Conn *sql.DB
 
-func Init(path string){
+func Init(path string)  {
 	var err error
 	Conn, err = sql.Open("sqlite3", path)
 	if err != nil {
-		log.Fatal("No se pudo abrir la db: ", err)
+		fmt.Errorf("No se pudo abrir la db: %w", err)
 	}
 
   createTables := `
     CREATE TABLE IF NOT EXISTS proyectos (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nombre TEXT NOT NULL UNIQUE,
-        url_general_html TEXT NOT NULL,
-        url_detallada_html TEXT NOT NULL
+        descripcion_general TEXT NOT NULL,
+        descripcion_detallada TEXT NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS archivos_src (
@@ -41,7 +47,7 @@ func Init(path string){
 
 		_, err = Conn.Exec(createTables)
 		if err != nil {
-			log.Fatal("No se pudieron crear las tablas: ", err)
+			fmt.Errorf("No se pudieron crear las tablas: ", err)
 		}
 }
 
@@ -75,7 +81,7 @@ func TraerProyectos() ([]pages.Proyecto, error) {
 		repo := strings.TrimPrefix(item.SubmoduleGitURL, "https://github.com/")
 
 		p, err := TraerProyectoRepo(repo, item.Name)
-		if err != nil {
+		if err == nil {
 			proyectos = append(proyectos, p)
 		}
 	}

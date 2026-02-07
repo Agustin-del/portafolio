@@ -1,0 +1,41 @@
+package pages
+
+import "portafolio/ui"
+
+type Mail struct {
+	De      string
+	Asunto  string
+	Mensaje string
+}
+
+templ Contacto() {
+	@ui.Layout("Contacto - Edmundo Ruveda Portafolio") {
+		<h1>Contacto</h1>
+		<h2>Si querés ponerte en contacto conmigo, podés hacerlo a través de: </h2>
+		<form id="form-contacto" hx-post="/contacto/mail" hx-target="#feedback">
+			<p>
+				<label for="email">Email*</label>
+				<input name="email" id="email" type="email" required/>
+			</p>
+			<p>
+				<label for="asunto">Asunto*</label>
+				<input name="asunto" id="asunto" type="text" value="" required/>
+			</p>
+			<p>
+				<label for="mensaje">Mensaje*</label>
+				<textarea required id="mensaje" name="mensaje" rows="10" cols="80"></textarea>
+			</p>
+			<button id="enviar" type="submit">Enviar</button>
+		</form>
+		<div id="feedback" class="vh" role="status" aria-live="polite" aria-atomic="true"></div>
+		<script src="scripts/enviar.js" defer></script>
+	}
+}
+
+templ ContactoVacio() {
+	<p class="feedback-error">❌ Todos los campos son necesarios.</p>
+}
+
+templ ContactoExito() {
+	<p class="feedback-ok">✅ Tu mensaje fue enviado con éxito.</p>
+}

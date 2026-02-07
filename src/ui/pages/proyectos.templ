@@ -1,0 +1,24 @@
+package pages
+import "portafolio/ui"
+
+type Proyecto struct {
+  Nombre string
+  DescripcionGeneral string
+  DescripcionDetallada string
+  Fuentes []string
+}
+
+templ Proyectos() {
+    @ui.Layout("Proyectos - Edmundo Ruveda Portafolio") {
+        <h1 id="proyectos">Proyectos</h1>
+        <nav aria-labelledby="proyectos">
+            <ul>
+                <li></li>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </ul>
+        </nav>
+    }
+}

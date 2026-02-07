@@ -1,0 +1,55 @@
+package ui
+
+templ Layout(title string) {
+	<!DOCTYPE html>
+	<html lang="es-AR">
+		<head>
+			<meta charset="utf-8"/>
+			<title>{ title }</title>
+			<meta name="viewport" content="width=device-width"/>
+			<link rel="stylesheet" href="estilos/styles.css"/>
+			<!-- <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href=""/> -->
+			<!-- <link rel="alternate" href="https://www.machinelearningworkshop.com/fr/" hreflang="fr-FR" /> -->
+			<!-- <link rel="canonical" href="base sin traduccion" /> -->
+			<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous" defer>
+    </script>
+			<meta
+				name="htmx-config"
+				content='{
+        "responseHandling": [
+        { "code": "200", "swap": "true" },
+        { "code": "422", "swap": "true" },
+        { "code": "500", "swap": "true" }
+        ]
+    }'
+			/>
+		</head>
+		<body>
+			<a class="skip-link" href="#contenido">Ir al contenido principal</a>
+			<header>
+				<nav role="menu">
+					<a href="/" role="menuitem">Inicio</a>
+					<a href="/proyectos" role="menuitem">Proyectos</a>
+					<a href="/contacto" role="menuitem">Contacto</a>
+				</nav>
+			</header>
+			<main id="contenido">
+				{ children... }
+			</main>
+			<footer>
+				<p>© 2026</p>
+				<div>
+					<p>Contacto: </p>
+					<address>
+						<a href="https://www.linkedin.com/in/edmundo-agust%C3%ADn-r%C3%BAveda/" target="_blank">
+							<img href="" alt="enlace a linkedin del autor: Edmundo Agustin Ruveda."/> Linkedin
+						</a>
+						<a href="https://github.com/Agustin-del" target="_blank">
+							<img href="" alt="enlace a github del autor: Edmundo Agustin Ruveda."/> Github
+						</a>
+					</address>
+				</div>
+			</footer>
+		</body>
+	</html>
+}
