@@ -1,4 +1,5 @@
 TOKEN GITHUB VENCE EN ABRIL -> tendria que automatizar en vez de esperar al error, minimo loguear.
+-fallar rapido sino estan las variables de entorno.
 -manejar reintentos mails servidor
 -manejar mejor las respuestas, estudiar un poco.
 -agregar sanitizacion de las entradas de usuario.
@@ -16,6 +17,9 @@ css:
   -A minimum size of 44×44 CSS pixels is recommended.
   
 Server (prod barato)
+github:
+git pull
+git submodule update --init --recursive
 
 variables de entorno
 
