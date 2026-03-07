@@ -23,29 +23,7 @@ cd src && go build -o tmp/main server.go && ./tmp/main
 cd src && go build -o bin/server server.go
 ```
 
-### Testing
-```bash
-# Run all tests
-cd src && go test ./...
-
-# Run a single test (use -run flag with test name pattern)
-cd src && go test -run TestName ./...
-
-# Run tests with verbose output
-cd src && go test -v ./...
-
-# Run tests with coverage
-cd src && go test -cover ./...
-```
-
 ### Linting
-```bash
-# Run golangci-lint (if installed)
-cd src && golangci-lint run
-
-# Run go vet
-cd src && go vet ./...
-
 # Format code
 cd src && go fmt ./...
 ```
@@ -174,7 +152,12 @@ Required for email functionality:
 3. Add route in `server.go`
 4. Add static assets if needed
 
-### Running a Specific Test
-```bash
-cd src && go test -v -run TestFunctionName ./package/path
-```
+## Important Notes
+
+- After editing any `.templ` file, run:
+
+  templ generate
+
+- Generated files (`*_templ.go`) must not be edited manually.
+
+- All commands must be run from the `src/` directory.
