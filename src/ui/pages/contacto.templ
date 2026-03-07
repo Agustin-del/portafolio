@@ -15,11 +15,11 @@ templ Contacto() {
 		<form id="form-contacto" hx-post="/contacto/mail" hx-target="#feedback">
 			<p>
 				<label for="email">Email*</label>
-				<input name="email" id="email" type="email" required/>
+				<input name="email" id="email" type="email" inputmode="email" required/>
 			</p>
 			<p>
 				<label for="asunto">Asunto*</label>
-				<input name="asunto" id="asunto" type="text" value="" required/>
+				<input inputmode="text" name="asunto" id="asunto" type="text" value="" required/>
 			</p>
 			<p>
 				<label for="mensaje">Mensaje*</label>

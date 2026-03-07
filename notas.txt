@@ -1,14 +1,17 @@
 TOKEN GITHUB VENCE EN ABRIL -> tendria que automatizar en vez de esperar al error, minimo loguear.
+-sintax highlight
+-los svg tambien tienen que tener alt?
 -fallar rapido sino estan las variables de entorno.
 -manejar reintentos mails servidor
 -manejar mejor las respuestas, estudiar un poco.
 -agregar sanitizacion de las entradas de usuario.
 -agregar nonce/o hash -> si o si por inline styles htmx.
 -CORS
--rate limit
+- rate-limit / anti-spam /honeypot
 -accesibilidad -> Include an accessibility policy/statement somewhere findable on your site to say what you did.
 -ver el assembly
 -fijarse el árbol en github, y como es la historia de commits, quizás puedo juntar, es decir es mi rama personal aunque sea main en este caso.
+-integrar mako con los mails, en general -> imap.gmail.com:993, mbsync
 
 css:
 -colores = #5E06B7 a #360F5C background 

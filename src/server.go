@@ -1,5 +1,5 @@
 package main
-
+//TODO: e.Use(middleware.Gzip())
 import (
 	"errors"
 	"fmt"
@@ -91,7 +91,7 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			if c.Request().Header.Get("Hx-Request") != "true" {
+			if !isHtmx(c) {
 				c.Response().Header().Set("Content-Security-Policy", csp)
 			}
 
