@@ -4,7 +4,8 @@ const feedback = document.getElementById("feedback");
 const form = document.getElementById("form-contacto");
 
 function checkInputs() {
-  const llenos = inputs.every(el => el.value.trim() != "")
+  const llenos = inputs.every(el => el.classList.contains("hp") || el.value.trim() !== "")
+
   btn.disabled = !llenos
 }
 
