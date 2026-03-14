@@ -13,6 +13,7 @@ templ Contacto() {
 		<h1>Contacto</h1>
 		<h2>Si querés ponerte en contacto conmigo, podés hacerlo a través de: </h2>
 		<form id="form-contacto" hx-post="/contacto/mail" hx-target="#feedback">
+			<input type="text" name="website_url" id="website_url" class="hp" tabindex="-1" autocomplete="off"/>
 			<p>
 				<label for="email">Email*</label>
 				<input name="email" id="email" type="email" inputmode="email" required/>
@@ -38,4 +39,8 @@ templ ContactoVacio() {
 
 templ ContactoExito() {
 	<p class="feedback-ok">✅ Tu mensaje fue enviado con éxito.</p>
+}
+
+templ ContactoError() {
+	<p class="feedback-error">❌ Error al guardar el mensaje. Intentalo más tarde.</p>
 }

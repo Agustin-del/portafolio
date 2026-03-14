@@ -49,7 +49,7 @@ func Contacto() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Contacto</h1><h2>Si querés ponerte en contacto conmigo, podés hacerlo a través de: </h2><form id=\"form-contacto\" hx-post=\"/contacto/mail\" hx-target=\"#feedback\"><p><label for=\"email\">Email*</label> <input name=\"email\" id=\"email\" type=\"email\" inputmode=\"email\" required></p><p><label for=\"asunto\">Asunto*</label> <input inputmode=\"text\" name=\"asunto\" id=\"asunto\" type=\"text\" value=\"\" required></p><p><label for=\"mensaje\">Mensaje*</label> <textarea required id=\"mensaje\" name=\"mensaje\" rows=\"10\" cols=\"80\"></textarea></p><button id=\"enviar\" type=\"submit\">Enviar</button></form><div id=\"feedback\" class=\"vh\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\"></div><script src=\"scripts/enviar.js\" defer></script>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Contacto</h1><h2>Si querés ponerte en contacto conmigo, podés hacerlo a través de: </h2><form id=\"form-contacto\" hx-post=\"/contacto/mail\" hx-target=\"#feedback\"><input type=\"text\" name=\"website_url\" id=\"website_url\" class=\"hp\" tabindex=\"-1\" autocomplete=\"off\"><p><label for=\"email\">Email*</label> <input name=\"email\" id=\"email\" type=\"email\" inputmode=\"email\" required></p><p><label for=\"asunto\">Asunto*</label> <input inputmode=\"text\" name=\"asunto\" id=\"asunto\" type=\"text\" value=\"\" required></p><p><label for=\"mensaje\">Mensaje*</label> <textarea required id=\"mensaje\" name=\"mensaje\" rows=\"10\" cols=\"80\"></textarea></p><button id=\"enviar\" type=\"submit\">Enviar</button></form><div id=\"feedback\" class=\"vh\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\"></div><script src=\"scripts/enviar.js\" defer></script>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -114,6 +114,35 @@ func ContactoExito() templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<p class=\"feedback-ok\">✅ Tu mensaje fue enviado con éxito.</p>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+func ContactoError() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var5 == nil {
+			templ_7745c5c3_Var5 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<p class=\"feedback-error\">❌ Error al guardar el mensaje. Intentalo más tarde.</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

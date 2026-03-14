@@ -1,57 +1,23 @@
 package main
-//TODO: e.Use(middleware.Gzip())
+
 import (
 	"errors"
-	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"net/http"
-	"net/smtp"
-	"os"
+
+	"portafolio/cron"
+	"portafolio/db"
 	"portafolio/ui/pages"
 )
 
 const csp = "default-src 'none'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self'; connect-src 'self';"
-
-func newMail(de, asunto, mensaje string) pages.Mail {
-	return pages.Mail{
-		De:      de,
-		Asunto:  asunto,
-		Mensaje: mensaje,
-	}
-}
-
-func enviarEmail(mail pages.Mail) error {
-	de := os.Getenv("USUARIO_SMTP")
-	pass := os.Getenv("PASS_SMTP")
-
-	para := de
-
-	auth := smtp.PlainAuth("", de, pass, "smtp.gmail.com")
-
-	msj := fmt.Sprintf(
-		"To: Contacto web <%s>\r\n"+
-			"From: %s\r\n"+
-			"Reply-To: %s\r\n"+
-			"Subject: [Contacto] %s\r\n"+
-			"\r\n"+
-			"%s\r\n",
-		de,
-		para,
-		mail.De,
-		mail.Asunto,
-		mail.Mensaje,
-	)
-
-	return smtp.SendMail(
-		"smtp.gmail.com:587",
-		auth,
-		de,
-		[]string{para},
-		[]byte(msj),
-	)
-}
 
 func render(c echo.Context, component templ.Component, code int) {
 	c.Response().WriteHeader(code)
@@ -66,7 +32,12 @@ func isHtmx(c echo.Context) bool {
 }
 
 func main() {
-	//var proyecto []Proyecto
+	if err := db.Init("data/portafolio.db"); err != nil {
+		log.Fatalf("Error inicializando base de datos: %v", err)
+	}
+	defer db.Close()
+
+	go cron.IniciarCron()
 
 	e := echo.New()
 
@@ -112,7 +83,7 @@ func main() {
 	})
 
 	e.GET("/proyectos", func(c echo.Context) error {
-		render(c,pages.Proyectos(), http.StatusOK)
+		render(c, pages.Proyectos(), http.StatusOK)
 		return nil
 	})
 
@@ -122,6 +93,21 @@ func main() {
 	})
 
 	e.POST("/contacto/mail", func(c echo.Context) error {
+		ip := c.RealIP()
+
+		if c.FormValue("website_url") != "" {
+			c.Logger().Warn("Honey pot activado desde IP: " + ip)
+			render(c, pages.ContactoExito(), http.StatusOK)
+			return nil
+		}
+
+		hora := 60
+		if count, err := db.ContarMensajesPorIP(ip, hora); err == nil && count >= 3 {
+			c.Logger().Warn("Límite de mensajes excedido para IP: " + ip)
+			render(c, pages.ContactoExito(), http.StatusOK)
+			return nil
+		}
+
 		de := c.FormValue("email")
 		asunto := c.FormValue("asunto")
 		mensaje := c.FormValue("mensaje")
@@ -131,16 +117,9 @@ func main() {
 			return nil
 		}
 
-		email := pages.Mail{
-			De:      de,
-			Asunto:  asunto,
-			Mensaje: mensaje,
-		}
-
-		// mantener el boton desactivado si estan vacios
-		if err := enviarEmail(email); err != nil {
-			c.Logger().Error("Error enviando mail", "error", err)
-			//render(c, pages.Error(http.StatusInternalServerError), http.StatusInternalServerError)
+		if _, err := db.GuardarMensaje(de, asunto, mensaje, ip); err != nil {
+			c.Logger().Error("Error guardando mensaje", "error", err)
+			render(c, pages.ContactoError(), http.StatusInternalServerError)
 			return nil
 		}
 
@@ -148,7 +127,16 @@ func main() {
 		return nil
 	})
 
-	if err := e.Start(":42069"); err != nil && !errors.Is(err, http.ErrServerClosed) {
-		e.Logger.Fatal("Fallo al intentar iniciar el servidor", "error", err)
-	}
+	go func() {
+		if err := e.Start(":42069"); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			e.Logger.Fatal("Fallo al intentar iniciar el servidor", "error", err)
+		}
+	}()
+
+	signalCh := make(chan os.Signal, 1)	
+	signal.Notify(signalCh, syscall.SIGTERM, syscall.SIGINT)
+	sig = <- signalCh 
+	log.Printf("Señal %v, cerrando servidor...", sig)
+	e.Close()
+	log.Println("Servidor cerrado")
 }
