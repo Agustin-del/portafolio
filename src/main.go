@@ -137,7 +137,7 @@ func main() {
 	signal.Notify(signalCh, syscall.SIGTERM, syscall.SIGINT)
 	<- signalCh 
 	log.Printf("Señal, cerrando servidor...")
-	//estoy cerrando el servidor, como esta funcion salga va a ejecutar el defer de la db es decir va a cerrar el archivo de sqlite
+	//TODO:estoy cerrando el servidor, como esta funcion salga va a ejecutar el defer de la db es decir va a cerrar el archivo de sqlite
 	//la cosa me parece que no estoy cerrando el ticker, es decir si el cron estaba ejecutando me parece que corta abruptamente.
 	e.Close()
 	log.Println("Servidor cerrado")

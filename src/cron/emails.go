@@ -92,7 +92,7 @@ func IniciarCron() {
 	ticker := time.NewTicker(IntervaloMinutos * time.Minute)
 
 	log.Printf("Cron de emails iniciado (cada %d minutos)", IntervaloMinutos)
-//acaso esta linea es necesaria? Es decir no deberia a esperar a que el ticker me mande un tick para procesar los pendientes?
+//TODO:acaso esta linea es necesaria? Es decir no deberia a esperar a que el ticker me mande un tick para procesar los pendientes?
 //en un punto tiene sentido que procese todo cuando inicia y desde ahi cada vez que se cumple el tick, supongo
 //podria chequear con una peticion a la db si hay emails nuevos o pendendientes, y sino retornar de aca, es decir cerrar el ticker
 //digo para no estar corriendo siempre este cron durante todo el proceso, tendria que hacer algo en main para que cuando esa busqueda en la db
