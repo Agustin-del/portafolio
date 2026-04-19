@@ -23,16 +23,16 @@ func Init(path string) error {
 
 	schema := `
 	CREATE TABLE IF NOT EXISTS mensajes (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		de TEXT,
-		asunto TEXT,
-		mensaje TEXT,
-		ip TEXT,
-		estado TEXT DEFAULT 'pendiente',
-		intentos INTEGER DEFAULT 0,
-		ultimo_error TEXT,
-		creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
-		enviado_en DATETIME
+		id INTEGER PRIMARY KEY,
+		de TEXT NOT NULL,
+		asunto TEXT NOT NULL,
+		mensaje TEXT NOT NULL,
+		ip TEXT NOT NULL,
+		estado TEXT DEFAULT 'pendiente' NOT NULL,
+		intentos INTEGER DEFAULT 0 NOT NULL,
+		ultimo_error TEXT NOT NULL,
+		creado_en DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+		enviado_en DATETIME NOT NULL
 	);
 	CREATE INDEX IF NOT EXISTS idx_estado ON mensajes(estado);
 	`

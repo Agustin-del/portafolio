@@ -135,8 +135,8 @@ func main() {
 
 	signalCh := make(chan os.Signal, 1)	
 	signal.Notify(signalCh, syscall.SIGTERM, syscall.SIGINT)
-	sig := <- signalCh 
-	log.Printf("Señal %v, cerrando servidor...", sig)
+	<- signalCh 
+	log.Printf("Señal, cerrando servidor...")
 	e.Close()
 	log.Println("Servidor cerrado")
 }

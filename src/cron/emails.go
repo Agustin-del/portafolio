@@ -15,19 +15,19 @@ const (
 	MaxPorLote       = 10
 )
 
-type Emisor struct {
+type emisor struct {
 	from string
 	pass string
 }
 
-func NewEmisor() *Emisor {
-	return &Emisor{
+func newEmisor() *emisor {
+	return &emisor{
 		from: os.Getenv("USUARIO_SMTP"),
 		pass: os.Getenv("PASS_SMTP"),
 	}
 }
 
-func (e *Emisor) Enviar(m db.Mensaje) error {
+func (e *emisor) enviar(m db.Mensaje) error {
 	para := e.from
 
 	auth := smtp.PlainAuth("", e.from, e.pass, "smtp.gmail.com")
@@ -55,7 +55,7 @@ func (e *Emisor) Enviar(m db.Mensaje) error {
 	)
 }
 
-func ProcesarPendientes(emisor *Emisor) {
+func procesarPendientes(emisor *emisor) {
 	mensajes, err := db.ObtenerPendientes(MaxPorLote)
 	if err != nil {
 		log.Printf("Error obteniendo mensajes pendientes: %v", err)
@@ -69,7 +69,7 @@ func ProcesarPendientes(emisor *Emisor) {
 	log.Printf("Procesando %d mensajes pendientes", len(mensajes))
 
 	for _, m := range mensajes {
-		if err := emisor.Enviar(m); err != nil {
+		if err := emisor.enviar(m); err != nil {
 			log.Printf("Error enviando mensaje %d: %v", m.ID, err)
 			if err := db.MarcarFallido(m.ID, err.Error()); err != nil {
 				log.Printf("Error marcando mensaje %d como fallido: %v", m.ID, err)
@@ -87,15 +87,15 @@ func ProcesarPendientes(emisor *Emisor) {
 }
 
 func IniciarCron() {
-	emisor := NewEmisor()
+	emisor := newEmisor()
 
 	ticker := time.NewTicker(IntervaloMinutos * time.Minute)
 
 	log.Printf("Cron de emails iniciado (cada %d minutos)", IntervaloMinutos)
 
-	ProcesarPendientes(emisor)
+	procesarPendientes(emisor)
 
 	for range ticker.C {
-		ProcesarPendientes(emisor)
+		procesarPendientes(emisor)
 	}
 }

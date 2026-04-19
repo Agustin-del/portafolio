@@ -1,17 +1,21 @@
-TOKEN GITHUB VENCE EN ABRIL -> tendria que automatizar en vez de esperar al error, minimo loguear.
--sintax highlight
--los svg tambien tienen que tener alt?
+BACKEND
+-sqlc?
+-chequear que el cron job tambien termine, fijarse si hay que pasar context
+-cron job para recorrer la tabla de emails, eliminar los enviados una vez a la semana.
 -fallar rapido sino estan las variables de entorno.
--manejar reintentos mails servidor
 -manejar mejor las respuestas, estudiar un poco.
 -agregar sanitizacion de las entradas de usuario.
 -agregar nonce/o hash -> si o si por inline styles htmx.
--CORS
-- rate-limit / anti-spam /honeypot
+- rate-limit / anti-spam /honeypot -> chequear
 -accesibilidad -> Include an accessibility policy/statement somewhere findable on your site to say what you did.
--ver el assembly
+-https://github.com/charmbracelet/skate... secrets-store || https://github.com/dgraph-io/badger
+WEB
+-sintax highlight -> archivos src
+-los svg tambien tienen que tener alt?
+-CORS -> aunque creo que por defecto me va a bloquear todo
+GENERAL
 -fijarse el árbol en github, y como es la historia de commits, quizás puedo juntar, es decir es mi rama personal aunque sea main en este caso.
--integrar mako con los mails, en general -> imap.gmail.com:993, mbsync
+-ver el assembly
 
 css:
 -colores = #5E06B7 a #360F5C background 
