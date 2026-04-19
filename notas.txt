@@ -1,4 +1,5 @@
 BACKEND
+-deberia iniciar la base de datos de manera concurrente, es decir hacer el startup de las distintas partes del sistema de manera concurrente?
 -sqlc?
 -chequear que el cron job tambien termine, fijarse si hay que pasar context
 -cron job para recorrer la tabla de emails, eliminar los enviados una vez a la semana.
