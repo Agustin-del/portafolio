@@ -10,6 +10,7 @@
 src/tmp
 src/data
 src/vendor
+src/proyectos
 
 # Test binary, built with `go test -c`
 *.test

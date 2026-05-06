@@ -62,7 +62,8 @@ func cargarProyectos() error {
 			}
 
 			if entry.Name() == ".git" || entry.Name() == "data" ||
-				entry.Name() == "vendor" || entry.Name() == "tmp" {
+				entry.Name() == "vendor" || entry.Name() == "tmp" || 
+				entry.Name() == "proyectos"{
 				return filepath.SkipDir
 			}
 
