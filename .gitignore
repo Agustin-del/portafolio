@@ -7,9 +7,9 @@
 *.dll
 *.so
 *.dylib
-tmp
-data
-vendor
+src/tmp
+src/data
+src/vendor
 
 # Test binary, built with `go test -c`
 *.test
