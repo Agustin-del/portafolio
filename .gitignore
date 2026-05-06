@@ -11,6 +11,7 @@ src/tmp
 src/data
 src/vendor
 src/proyectos
+src/portafolio
 
 # Test binary, built with `go test -c`
 *.test
