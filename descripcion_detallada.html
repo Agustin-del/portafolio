@@ -1,0 +1,23 @@
+<h2>Diseño del Sistema Portafolio</h2>
+
+<h3>Arquitectura</h3>
+<p>El proyecto sigue una arquitectura simple con separación de responsabilidades:</p>
+<ul>
+  <li><strong>main.go</strong>: Punto de entrada, configuración de rutas y carga de proyectos en memoria</li>
+  <li><strong>db/</strong>: Manejo de base de datos SQLite para mensajes de contacto</li>
+  <li><strong>cron/</strong>: Tareas programadas (ej. envío de emails pendientes)</li>
+  <li><strong>ui/</strong>: Plantillas templ para las vistas</li>
+</ul>
+
+<h3>Estrategia de Caché</h3>
+<p>Los proyectos se cargan en memoria al iniciar el servidor usando una estructura:</p>
+<pre><code>map[string]map[string][]byte</code></pre>
+<p>Donde el primer nivel es el nombre del proyecto y el segundo nivel es la ruta del archivo con su contenido en bytes. Esto permite servir archivos sin leer del disco en cada request.</p>
+
+<h3>Seguridad</h3>
+<ul>
+  <li>Content Security Policy (CSP) configurado</li>
+  <li>Protección contra spam con campo honeypot</li>
+  <li>Límite de mensajes por IP</li>
+  <li>Validación de formularios</li>
+</ul>

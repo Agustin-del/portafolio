@@ -43,7 +43,7 @@ func cargarProyectos() error {
 
 		proyectos[nombreProyecto] = make(map[string][]byte)
 
-		archivos := []string{"descripcion.md", "descripcion_detallada.md"}
+		archivos := []string{"descripcion.html", "descripcion_detallada.html"}
 		for _, archivo := range archivos {
 			ruta := filepath.Join(proyectoDir, archivo)
 			contenido, err := os.ReadFile(ruta)
