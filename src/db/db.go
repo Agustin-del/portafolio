@@ -9,7 +9,7 @@ import (
 
 var Conn *sql.DB
 
-func Init(path string) error {
+func Init(path string) error{
 	db, err := sql.Open("sqlite3", path)
 	if err != nil {
 		return err
@@ -37,7 +37,7 @@ func Init(path string) error {
 	CREATE INDEX IF NOT EXISTS idx_estado ON mensajes(estado);
 	`
 
-	if _, err := Conn.Exec(schema); err != nil {
+	if _, err := db.Exec(schema); err != nil {
 		return err
 	}
 

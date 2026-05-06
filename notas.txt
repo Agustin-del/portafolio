@@ -1,6 +1,7 @@
 BACKEND
+-Caching (Redis fundamentals) -> me parece que voy a necesitar, es decir los proyectos de github tendrian que estar en acceso rapido
 -deberia iniciar la base de datos de manera concurrente, es decir hacer el startup de las distintas partes del sistema de manera concurrente?
--sqlc?
+-sqlc -> si
 -chequear que el cron job tambien termine, fijarse si hay que pasar context
 -cron job para recorrer la tabla de emails, eliminar los enviados una vez a la semana.
 -fallar rapido sino estan las variables de entorno.
@@ -10,6 +11,8 @@ BACKEND
 - rate-limit / anti-spam /honeypot -> chequear
 -accesibilidad -> Include an accessibility policy/statement somewhere findable on your site to say what you did.
 -https://github.com/charmbracelet/skate... secrets-store || https://github.com/dgraph-io/badger
+-paralelizar mas? Para probar, es medio de gusto por ahora, me parece, lo podria hacer para probar.
+-load balancer -> https://go.dev/blog/waza-talk
 WEB
 -sintax highlight -> archivos src
 -los svg tambien tienen que tener alt?

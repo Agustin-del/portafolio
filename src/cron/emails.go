@@ -100,9 +100,8 @@ func IniciarCron() {
 //me parece poco sobre todo porque pasa concurrentemente. Acaso no seria mejor poner un minimo? Y este cron capaz dejarlo que corra,
 //pero pasar la logica a la funcion que procesa para que retorne si no hay suficientes mensajes... mm no la cosa no, porque quiero que me 
 //lleguen los mails. Igual el maximo me parece poco.
-	procesarPendientes(emisor)
-
-	for range ticker.C {
+	
+	for ; ; <-ticker.C {
 		procesarPendientes(emisor)
 	}
 }
