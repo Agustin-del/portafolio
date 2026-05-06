@@ -121,12 +121,6 @@ func main() {
 		log.Fatalf("Error cargando proyectos: %v", err)
 	}
 
-	for proyecto, archivos := range proyectos {
-		for archivo, _ := range archivos {
-			fmt.Printf("Proyecto: %s\nArchivo: %s\n", proyecto, archivo)
-		}
-	}
-
 	if err := db.Init("data/portafolio.db"); err != nil {
 		log.Fatalf("Error inicializando base de datos: %v", err)
 	}
@@ -177,9 +171,13 @@ func main() {
 	})
 
 	e.GET("/proyectos", func(c echo.Context) error {
-		render(c, pages.Proyectos(), http.StatusOK)
-		return nil
-	})
+    nombres := make([]string, 0, len(proyectos))
+    for nombre := range proyectos {
+      nombres = append(nombres, nombre)
+    }
+    render(c, pages.Proyectos(nombres), http.StatusOK)
+    return nil
+  })
 
 	e.GET("/contacto", func(c echo.Context) error {
 		render(c, pages.Contacto(), http.StatusOK)
